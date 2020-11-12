@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import Slider from "react-slick";
 import westlemServices from "./westlemServices";
 
 class App extends React.Component {
@@ -51,54 +52,27 @@ class App extends React.Component {
     });
   };
   heroImage = () => {
+    var settings = {
+      dots: true,
+      speed: 500,
+      slidesToShow: 1
+    };
     return this.state.heros.map((hero, index) => {
       const { href, alt, width, rel, meta, size, height, images } = hero;
       return (
-        <div
-          id="carouselExampleIndicators"
-          class="carousel slide"
-          data-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                onClick={(heroImages) => heroImages(images)}
-                key={index}
-                src={href}
-                alt={alt}
-                width={width}
-                height={height}
-                rel={rel}
-                meta={meta}
-                size={size}
-              />
-              <a
-                class="carousel-control-prev"
-                href="#carouselExampleFade"
-                role="button"
-                data-slide="prev"
-              >
-                <span
-                  class="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a
-                class="carousel-control-next"
-                href="#carouselExampleFade"
-                role="button"
-                data-slide="next"
-              >
-                <span
-                  class="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <Slider {...settings}>
+          <img
+            onClick={(heroImages) => heroImages(images)}
+            key={index}
+            src={href}
+            alt={alt}
+            width={width}
+            height={height}
+            rel={rel}
+            meta={meta}
+            size={size}
+          />
+        </Slider>
       );
     });
   };
@@ -107,6 +81,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h2>Start editing to see some magic happen!</h2>
+        <button onClick={this.heroImage}>Show Images</button>
       </div>
     );
   }
